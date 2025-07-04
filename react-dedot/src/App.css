@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Custom border width for spinner */
+.border-3 {
+  border-width: 3px;
+}
