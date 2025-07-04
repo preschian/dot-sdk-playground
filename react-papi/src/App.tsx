@@ -16,36 +16,44 @@ interface NetworkData {
 }
 
 function App() {
+  const [address, setAddress] = useState<string>("");
   const [networks, setNetworks] = useState<NetworkData[]>([
     { chain: "polkadot", data: null, loading: true, error: null },
     { chain: "kusama", data: null, loading: true, error: null },
     { chain: "paseo", data: null, loading: true, error: null },
   ]);
 
+  const fetchAllData = async (customAddress?: string) => {
+    const chains = ["polkadot", "kusama", "paseo"];
+    
+    // Reset loading states
+    setNetworks(prev => prev.map(network => ({ ...network, loading: true, error: null })));
+    
+    const promises = chains.map(async (chain) => {
+      try {
+        const data = await getData(chain, customAddress);
+        return { chain, data, loading: false, error: null };
+      } catch (err) {
+        return { 
+          chain, 
+          data: null, 
+          loading: false, 
+          error: err instanceof Error ? err.message : "An error occurred" 
+        };
+      }
+    });
+
+    const results = await Promise.all(promises);
+    setNetworks(results);
+  };
+
   useEffect(() => {
-    const fetchAllData = async () => {
-      const chains = ["polkadot", "kusama", "paseo"];
-      
-      const promises = chains.map(async (chain) => {
-        try {
-          const data = await getData(chain);
-          return { chain, data, loading: false, error: null };
-        } catch (err) {
-          return { 
-            chain, 
-            data: null, 
-            loading: false, 
-            error: err instanceof Error ? err.message : "An error occurred" 
-          };
-        }
-      });
+    fetchAllData(address);
+  }, [address]);
 
-      const results = await Promise.all(promises);
-      setNetworks(results);
-    };
-
-    fetchAllData();
-  }, []);
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddress(e.target.value);
+  };
 
   const getChainBadgeColor = (chain: string) => {
     switch (chain) {
@@ -73,9 +81,27 @@ function App() {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Polkadot Portfolio
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
             Track your assets across multiple Polkadot ecosystem networks
           </p>
+          
+          {/* Address Input */}
+          <div className="max-w-md mx-auto">
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
+              Account Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              value={address}
+              onChange={handleAddressChange}
+              placeholder="Enter address (leave empty for default)"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            />
+            <p className="text-xs text-gray-500 mt-2">
+              Leave empty to use the default address
+            </p>
+          </div>
         </div>
 
         {/* Networks Grid */}
@@ -121,7 +147,7 @@ function App() {
                       <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
                         Account
                       </div>
-                      <div className="text-sm font-mono text-gray-800 break-all">
+                      <div className="text-sm font-mono text-gray-800 truncate">
                         {network.data.name}
                       </div>
                     </div>

@@ -57,7 +57,9 @@ const identityDataToString = (data: IdentityData | undefined) => {
   return data.value.asText();
 };
 
-export async function getData(chain = "polkadot") {
+export async function getData(chain = "polkadot", address?: string) {
+  const targetAddress = address?.trim() || ADDRESS;
+  
   let api, client, assetHubApi, peopleApi;
 
   if (chain === "polkadot") {
@@ -82,15 +84,15 @@ export async function getData(chain = "polkadot") {
   }
 
   const [account, nfts, identity] = await Promise.all([
-    api.query.System.Account.getValue(ADDRESS),
-    assetHubApi.query.Nfts.Account.getEntries(ADDRESS),
-    chain !== "paseo" ? peopleApi.query.Identity.IdentityOf.getValue(ADDRESS) : null,
+    api.query.System.Account.getValue(targetAddress),
+    assetHubApi.query.Nfts.Account.getEntries(targetAddress),
+    chain !== "paseo" ? peopleApi.query.Identity.IdentityOf.getValue(targetAddress) : null,
   ]);
 
   const chainSpec = await client.getChainSpecData();
   const tokenDecimals = chainSpec.properties.tokenDecimals;
 
-  const name = identityDataToString(identity?.info.display) ?? ADDRESS;
+  const name = identityDataToString(identity?.info.display) ?? targetAddress;
   const freeBalance = Number(account.data.free) / Math.pow(10, tokenDecimals);
 
   console.log(chain, name, freeBalance, nfts.length);
