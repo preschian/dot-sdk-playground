@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@polkadot-api/descriptors": "file:.papi/descriptors",
+    "polkadot-api": "^1.14.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
