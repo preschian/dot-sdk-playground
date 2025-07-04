@@ -190,7 +190,7 @@ function App() {
         {/* Footer */}
         <div className="text-center mt-16 pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-500">
-            Powered by Polkadot API
+            Powered by Papi
           </p>
         </div>
       </div>
