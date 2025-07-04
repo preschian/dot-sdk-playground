@@ -19,6 +19,24 @@
       "metadata": ".papi/metadata/dot_people.scale",
       "genesis": "0x67fa177a097bfa18f77ea95ab56e9bcdfeb0e5b8a40e46298bb93e16b6fc5008",
       "codeHash": "0x5ad90a21b395a16a6d720983bb9fdd096577710beea33c7882bb61a7518dbb79"
+    },
+    "ksm": {
+      "chain": "ksmcc3",
+      "metadata": ".papi/metadata/ksm.scale",
+      "genesis": "0xb0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe",
+      "codeHash": "0xf45689276dfdcf05b6defd26da68e3283a96190d789f7a311ff31f64b455b421"
+    },
+    "ksm_asset_hub": {
+      "chain": "ksmcc3_asset_hub",
+      "metadata": ".papi/metadata/ksm_asset_hub.scale",
+      "genesis": "0x48239ef607d7928874027a43a67689209727dfb3d3dc5e5b03a39bdc2eda771a",
+      "codeHash": "0x8356dd03a2a5521b9339ce0c6b2a56d3edf83f0ca7262e9edabb695df770a0f6"
+    },
+    "ksm_people": {
+      "chain": "ksmcc3_people",
+      "metadata": ".papi/metadata/ksm_people.scale",
+      "genesis": "0xc1af4cb4eb3918e5db15086c0cc5ec17fb334f728b7c65dd44bfe1e174ff8b3f",
+      "codeHash": "0xc897696af11fac9547bdd053b5ef06ee2c5fb4d9465e5be1f6955770b1f2d082"
     }
   }
 }

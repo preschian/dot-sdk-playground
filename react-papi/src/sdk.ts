@@ -2,6 +2,9 @@ import {
   dot,
   dot_asset_hub,
   dot_people,
+  ksm,
+  ksm_asset_hub,
+  ksm_people,
   IdentityData,
 } from "@polkadot-api/descriptors";
 import { Binary, createClient } from "polkadot-api";
@@ -19,10 +22,25 @@ const dotPeopleClient = createClient(
 );
 const dotPeopleApi = dotPeopleClient.getTypedApi(dot_people);
 
+// kusama
+const ksmClient = createClient(getWsProvider("wss://ksm-rpc.stakeworld.io"));
+const ksmApi = ksmClient.getTypedApi(ksm);
+const ksmAssetHubClient = createClient(
+  getWsProvider("wss://ksm-rpc.stakeworld.io/assethub"),
+);
+const ksmAssetHubApi = ksmAssetHubClient.getTypedApi(ksm_asset_hub);
+const ksmPeopleClient = createClient(
+  getWsProvider("wss://ksm-rpc.stakeworld.io/people"),
+);
+const ksmPeopleApi = ksmPeopleClient.getTypedApi(ksm_people);
+
 await Promise.all([
   dotApi.compatibilityToken,
   dotAssetHubApi.compatibilityToken,
   dotPeopleApi.compatibilityToken,
+  ksmApi.compatibilityToken,
+  ksmAssetHubApi.compatibilityToken,
+  ksmPeopleApi.compatibilityToken,
 ]);
 
 const ADDRESS = "16JGzEsi8gcySKjpmxHVrkLTHdFHodRepEz8n244gNZpr9J";
@@ -42,6 +60,11 @@ export async function getData(chain = "polkadot") {
     client = dotClient;
     assetHubApi = dotAssetHubApi;
     peopleApi = dotPeopleApi;
+  } else if (chain === "kusama") {
+    api = ksmApi;
+    client = ksmClient;
+    assetHubApi = ksmAssetHubApi;
+    peopleApi = ksmPeopleApi;
   }
 
   if (!api || !client || !assetHubApi || !peopleApi) {
@@ -65,4 +88,5 @@ export async function getData(chain = "polkadot") {
 }
 
 console.clear();
-getData("polkadot");
+await getData("polkadot");
+await getData("kusama");
