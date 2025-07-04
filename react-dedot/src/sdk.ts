@@ -35,7 +35,9 @@ const ADDRESS = "16JGzEsi8gcySKjpmxHVrkLTHdFHodRepEz8n244gNZpr9J";
 
 const identityDataToString = (data: PalletIdentityRegistration | undefined | null) => {
   if (data?.info.display.type !== "Raw") return undefined;
-  return hexToString(data.info.display.value);
+
+  const display = data.info.display.value;
+  return typeof display === "string" ? display : hexToString(display);
 };
 
 export async function getData(chain = "polkadot", address?: string) {
