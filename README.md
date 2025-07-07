@@ -11,6 +11,19 @@ This project is created to test and explore the capabilities of both dedot and p
 - **react-dedot/**: React app using the dedot SDK
 - **react-papi/**: React app using the papi (polkadot-api) SDK
 
+## Comparison
+
+| sdk | build time (vercel) | js size (non-gzip) |
+| --- | --- | --- |
+| papi | 1m28s | 614 kB |
+| dedot | 35s | 323 kB |
+
+- https://dot-sdk-playground-react-papi.vercel.app/
+- https://dot-sdk-playground-react-dedot.vercel.app/
+
+> [!TIP]
+> papi requires extra effort for dapp size optimization: https://papi.how/codegen#whitelist
+
 ## Tech Stack
 
 - **Frontend**: React + TypeScript + Vite
