@@ -65,7 +65,6 @@ export async function getData(chain = "polkadot", address?: string) {
 
   const [account, nfts, identity] = await Promise.all([
     api.query.system.account(targetAddress),
-    // @ts-expect-error - no need to pass second param
     assetHubApi.query.nfts.account.entries(targetAddress),
     chain !== "paseo" ? peopleApi.query.identity.identityOf(targetAddress) : null,
   ]);
