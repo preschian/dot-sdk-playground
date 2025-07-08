@@ -37,18 +37,6 @@ const pasAssetHubApi = pasAssetHubClient.getTypedApi(pas_asset_hub);
 const pasPeopleClient = createClient(getWsProvider("wss://pas-rpc.stakeworld.io/people"));
 const pasPeopleApi = pasPeopleClient.getTypedApi(pas_people);
 
-await Promise.all([
-  dotApi.compatibilityToken,
-  dotAssetHubApi.compatibilityToken,
-  dotPeopleApi.compatibilityToken,
-  ksmApi.compatibilityToken,
-  ksmAssetHubApi.compatibilityToken,
-  ksmPeopleApi.compatibilityToken,
-  pasApi.compatibilityToken,
-  pasAssetHubApi.compatibilityToken,
-  pasPeopleApi.compatibilityToken,
-]);
-
 const ADDRESS = "16JGzEsi8gcySKjpmxHVrkLTHdFHodRepEz8n244gNZpr9J";
 
 const identityDataToString = (data: IdentityData | undefined) => {
