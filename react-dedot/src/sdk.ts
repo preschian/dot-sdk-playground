@@ -13,23 +13,27 @@ import type {
 import { hexToString } from "dedot/utils";
 import type { PalletIdentityRegistration } from "@dedot/chaintypes/polkadot-people";
 
-const [dotApi, dotAssetHubApi, dotPeopleApi, ksmApi, ksmAssetHubApi, ksmPeopleApi, pasApi, pasAssetHubApi, pasPeopleApi] =
-  await Promise.all([
-    // polkadot
-    DedotClient.new<PolkadotApi>(new WsProvider("wss://dot-rpc.stakeworld.io")),
-    DedotClient.new<PolkadotAssetHubApi>(new WsProvider("wss://dot-rpc.stakeworld.io/assethub")),
-    DedotClient.new<PolkadotPeopleApi>(new WsProvider("wss://dot-rpc.stakeworld.io/people")),
+function apiInterface(chain = "polkadot") {
+  if (chain === "kusama") {
+    return {
+      api: DedotClient.new<KusamaApi>(new WsProvider("wss://ksm-rpc.stakeworld.io")),
+      assetHubApi: DedotClient.new<KusamaAssetHubApi>(new WsProvider("wss://ksm-rpc.stakeworld.io/assethub")),
+      peopleApi: DedotClient.new<KusamaPeopleApi>(new WsProvider("wss://ksm-rpc.stakeworld.io/people")),
+    }
+  } else if (chain === "paseo") {
+    return {
+      api: DedotClient.new<PaseoApi>(new WsProvider("wss://pas-rpc.stakeworld.io")),
+      assetHubApi: DedotClient.new<PaseoAssetHubApi>(new WsProvider("wss://pas-rpc.stakeworld.io/assethub")),
+      peopleApi: DedotClient.new<PaseoPeopleApi>(new WsProvider("wss://pas-rpc.stakeworld.io/people")),
+    }
+  }
 
-    // kusama
-    DedotClient.new<KusamaApi>(new WsProvider("wss://ksm-rpc.stakeworld.io")),
-    DedotClient.new<KusamaAssetHubApi>(new WsProvider("wss://ksm-rpc.stakeworld.io/assethub")),
-    DedotClient.new<KusamaPeopleApi>(new WsProvider("wss://ksm-rpc.stakeworld.io/people")),
-
-    // paseo
-    DedotClient.new<PaseoApi>(new WsProvider("wss://pas-rpc.stakeworld.io")),
-    DedotClient.new<PaseoAssetHubApi>(new WsProvider("wss://pas-rpc.stakeworld.io/assethub")),
-    DedotClient.new<PaseoPeopleApi>(new WsProvider("wss://pas-rpc.stakeworld.io/people")),
-  ]);
+  return {
+    api: DedotClient.new<PolkadotApi>(new WsProvider("wss://dot-rpc.stakeworld.io")),
+    assetHubApi: DedotClient.new<PolkadotAssetHubApi>(new WsProvider("wss://dot-rpc.stakeworld.io/assethub")),
+    peopleApi: DedotClient.new<PolkadotPeopleApi>(new WsProvider("wss://dot-rpc.stakeworld.io/people")),
+  }
+}
 
 const ADDRESS = "16JGzEsi8gcySKjpmxHVrkLTHdFHodRepEz8n244gNZpr9J";
 
@@ -42,22 +46,10 @@ const identityDataToString = (data: PalletIdentityRegistration | undefined | nul
 
 export async function getData(chain = "polkadot", address?: string) {
   const targetAddress = address?.trim() || ADDRESS;
-
-  let api, assetHubApi, peopleApi;
-
-  if (chain === "polkadot") {
-    api = dotApi;
-    assetHubApi = dotAssetHubApi;
-    peopleApi = dotPeopleApi;
-  } else if (chain === "kusama") {
-    api = ksmApi;
-    assetHubApi = ksmAssetHubApi;
-    peopleApi = ksmPeopleApi;
-  } else if (chain === "paseo") {
-    api = pasApi;
-    assetHubApi = pasAssetHubApi;
-    peopleApi = pasPeopleApi;
-  }
+  const selected = apiInterface(chain)
+  const api = await selected.api
+  const assetHubApi = await selected.assetHubApi
+  const peopleApi = await selected.peopleApi
 
   if (!api || !assetHubApi || !peopleApi) {
     throw new Error("Invalid chain");
