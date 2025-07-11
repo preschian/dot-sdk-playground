@@ -16,6 +16,9 @@ This project is created to test and explore the capabilities of both dedot and p
 | sdk | build time (vercel) | js size (non-gzip) |
 | --- | --- | --- |
 | papi | 1m28s | 614 kB |
+| [papi + 3 chains](https://github.com/preschian/dot-sdk-playground/pull/2) | 1m55s | 721 kB |
+| [papi + whitelist.ts](https://github.com/preschian/dot-sdk-playground/pull/3) | 44s | 342 kB |
+| [papi + getUnsafeApi()](https://github.com/preschian/dot-sdk-playground/pull/4) | 1m27s | 333 kB |
 | dedot | 35s | 323 kB |
 
 - https://dot-sdk-playground-react-papi.vercel.app/
