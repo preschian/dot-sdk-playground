@@ -15,27 +15,27 @@ import { getWsProvider } from "polkadot-api/ws-provider/web";
 
 // polkadot
 const dotClient = createClient(getWsProvider("wss://dot-rpc.stakeworld.io"));
-const dotApi = dotClient.getTypedApi(dot);
+const dotApi = dotClient.getUnsafeApi<typeof dot>();
 const dotAssetHubClient = createClient(getWsProvider("wss://dot-rpc.stakeworld.io/assethub"));
-const dotAssetHubApi = dotAssetHubClient.getTypedApi(dot_asset_hub);
+const dotAssetHubApi = dotAssetHubClient.getUnsafeApi<typeof dot_asset_hub>();
 const dotPeopleClient = createClient(getWsProvider("wss://dot-rpc.stakeworld.io/people"));
-const dotPeopleApi = dotPeopleClient.getTypedApi(dot_people);
+const dotPeopleApi = dotPeopleClient.getUnsafeApi<typeof dot_people>();
 
 // kusama
 const ksmClient = createClient(getWsProvider("wss://ksm-rpc.stakeworld.io"));
-const ksmApi = ksmClient.getTypedApi(ksm);
+const ksmApi = ksmClient.getUnsafeApi<typeof ksm>();
 const ksmAssetHubClient = createClient(getWsProvider("wss://ksm-rpc.stakeworld.io/assethub"));
-const ksmAssetHubApi = ksmAssetHubClient.getTypedApi(ksm_asset_hub);
+const ksmAssetHubApi = ksmAssetHubClient.getUnsafeApi<typeof ksm_asset_hub>();
 const ksmPeopleClient = createClient(getWsProvider("wss://ksm-rpc.stakeworld.io/people"));
-const ksmPeopleApi = ksmPeopleClient.getTypedApi(ksm_people);
+const ksmPeopleApi = ksmPeopleClient.getUnsafeApi<typeof ksm_people>();
 
 // paseo
 const pasClient = createClient(getWsProvider("wss://pas-rpc.stakeworld.io"));
-const pasApi = pasClient.getTypedApi(pas);
+const pasApi = pasClient.getUnsafeApi<typeof pas>();
 const pasAssetHubClient = createClient(getWsProvider("wss://pas-rpc.stakeworld.io/assethub"));
-const pasAssetHubApi = pasAssetHubClient.getTypedApi(pas_asset_hub);
+const pasAssetHubApi = pasAssetHubClient.getUnsafeApi<typeof pas_asset_hub>();
 const pasPeopleClient = createClient(getWsProvider("wss://pas-rpc.stakeworld.io/people"));
-const pasPeopleApi = pasPeopleClient.getTypedApi(pas_people);
+const pasPeopleApi = pasPeopleClient.getUnsafeApi<typeof pas_people>();
 
 const ADDRESS = "16JGzEsi8gcySKjpmxHVrkLTHdFHodRepEz8n244gNZpr9J";
 
