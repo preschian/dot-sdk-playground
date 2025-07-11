@@ -55,6 +55,24 @@
       "metadata": ".papi/metadata/pas_people.scale",
       "genesis": "0xe6c30d6e148f250b887105237bcaa5cb9f16dd203bf7b5b9d4f1da7387cb86ec",
       "codeHash": "0x08900cf7113b3e152f7887796b5311f01a6eda32684425c0d2794b542c9dd739"
+    },
+    "wnd": {
+      "chain": "westend2",
+      "metadata": ".papi/metadata/wnd.scale",
+      "genesis": "0xe143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e",
+      "codeHash": "0xe042061a17fc950bbee15fdc7997fb04fd1a8e7b3af8c59655f19eaaa23cce28"
+    },
+    "wnd_asset_hub": {
+      "chain": "westend2_asset_hub",
+      "metadata": ".papi/metadata/wnd_asset_hub.scale",
+      "genesis": "0x67f9723393ef76214df0118c34bbbd3dbebc8ed46a10973a8c969d48fe7598c9",
+      "codeHash": "0x4d4e036d59a3f54d499c935535a847b1f9885226ff776baf7c92e2bd0bf4a55e"
+    },
+    "wnd_people": {
+      "chain": "westend2_people",
+      "metadata": ".papi/metadata/wnd_people.scale",
+      "genesis": "0x1eb6fb0ba5187434de017a70cb84d4f47142df1d571d0ef9e7e1407f2b80b93c",
+      "codeHash": "0x016408470c90ed6aec5fa1eed13a82ee686e7d0d32bd5677018eedea6b5ffb9f"
     }
   }
 }
