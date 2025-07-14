@@ -21,10 +21,11 @@ function App() {
     { chain: "polkadot", data: null, loading: true, error: null },
     { chain: "kusama", data: null, loading: true, error: null },
     { chain: "paseo", data: null, loading: true, error: null },
+    { chain: "westend", data: null, loading: true, error: null },
   ]);
 
   const fetchAllData = async (customAddress?: string) => {
-    const chains = ["polkadot", "kusama", "paseo"];
+    const chains = ["polkadot", "kusama", "paseo", "westend"];
     
     // Reset loading states
     setNetworks(prev => prev.map(network => ({ ...network, loading: true, error: null })));
@@ -60,6 +61,7 @@ function App() {
       case "polkadot": return "bg-pink-50 text-pink-700 border-pink-200";
       case "kusama": return "bg-gray-50 text-gray-700 border-gray-200";
       case "paseo": return "bg-emerald-50 text-emerald-700 border-emerald-200";
+      case "westend": return "bg-blue-50 text-blue-700 border-blue-200";
       default: return "bg-blue-50 text-blue-700 border-blue-200";
     }
   };
@@ -69,6 +71,7 @@ function App() {
       case "polkadot": return "DOT";
       case "kusama": return "KSM";
       case "paseo": return "PAS";
+      case "westend": return "WND";
       default: return "TOKEN";
     }
   };

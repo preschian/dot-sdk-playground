@@ -9,6 +9,9 @@ import type {
   PaseoApi,
   PaseoAssetHubApi,
   PaseoPeopleApi,
+  WestendApi,
+  WestendAssetHubApi,
+  WestendPeopleApi,
 } from "@dedot/chaintypes";
 import { hexToString } from "dedot/utils";
 import type { PalletIdentityRegistration } from "@dedot/chaintypes/polkadot-people";
@@ -25,6 +28,12 @@ function apiInterface(chain = "polkadot") {
       api: DedotClient.new<PaseoApi>(new WsProvider("wss://pas-rpc.stakeworld.io")),
       assetHubApi: DedotClient.new<PaseoAssetHubApi>(new WsProvider("wss://pas-rpc.stakeworld.io/assethub")),
       peopleApi: DedotClient.new<PaseoPeopleApi>(new WsProvider("wss://pas-rpc.stakeworld.io/people")),
+    }
+  } else if (chain === "westend") {
+    return {
+      api: DedotClient.new<WestendApi>(new WsProvider("wss://westend-rpc.polkadot.io")),
+      assetHubApi: DedotClient.new<WestendAssetHubApi>(new WsProvider("wss://westend-asset-hub-rpc.polkadot.io")),
+      peopleApi: DedotClient.new<WestendPeopleApi>(new WsProvider("wss://westend-people-rpc.polkadot.io")),
     }
   }
 

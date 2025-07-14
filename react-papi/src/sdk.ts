@@ -8,6 +8,9 @@ import {
   pas,
   pas_asset_hub,
   pas_people,
+  wnd,
+  wnd_asset_hub,
+  wnd_people,
   IdentityData,
 } from "@polkadot-api/descriptors";
 import { Binary, createClient } from "polkadot-api";
@@ -37,6 +40,14 @@ const pasAssetHubApi = pasAssetHubClient.getTypedApi(pas_asset_hub);
 const pasPeopleClient = createClient(getWsProvider("wss://pas-rpc.stakeworld.io/people"));
 const pasPeopleApi = pasPeopleClient.getTypedApi(pas_people);
 
+// westend
+const wndClient = createClient(getWsProvider("wss://westend-rpc.polkadot.io"));
+const wndApi = wndClient.getTypedApi(wnd);
+const wndAssetHubClient = createClient(getWsProvider("wss://westend-asset-hub-rpc.polkadot.io"));
+const wndAssetHubApi = wndAssetHubClient.getTypedApi(wnd_asset_hub);
+const wndPeopleClient = createClient(getWsProvider("wss://westend-people-rpc.polkadot.io"));
+const wndPeopleApi = wndPeopleClient.getTypedApi(wnd_people);
+
 const ADDRESS = "16JGzEsi8gcySKjpmxHVrkLTHdFHodRepEz8n244gNZpr9J";
 
 const identityDataToString = (data: IdentityData | undefined) => {
@@ -65,6 +76,11 @@ export async function getData(chain = "polkadot", address?: string) {
     client = pasClient;
     assetHubApi = pasAssetHubApi;
     peopleApi = pasPeopleApi;
+  } else if (chain === "westend") {
+    api = wndApi;
+    client = wndClient;
+    assetHubApi = wndAssetHubApi;
+    peopleApi = wndPeopleApi;
   }
 
   if (!api || !client || !assetHubApi || !peopleApi) {
