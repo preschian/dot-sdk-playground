@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        directory: [nuxt-papi, react-dedot, react-papi]
+        directory: [react-dedot, react-papi]
     
     steps:
     - name: Checkout repository
@@ -29,3 +29,42 @@ jobs:
     - name: Build project
       run: bun run build
       working-directory: ${{ matrix.directory }}
+
+  nuxt-papi:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package-manager: [npm, bun, pnpm]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    
+    - name: Setup Bun
+      if: matrix.package-manager == 'bun'
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
+    
+    - name: Setup pnpm
+      if: matrix.package-manager == 'pnpm'
+      uses: pnpm/action-setup@v2
+      with:
+        version: latest
+    
+    - name: Install dependencies
+      run: ${{ matrix.package-manager }} install
+      working-directory: nuxt-papi
+    
+    - name: Run typecheck
+      run: ${{ matrix.package-manager }} run typecheck
+      working-directory: nuxt-papi
+    
+    - name: Build project
+      run: ${{ matrix.package-manager }} run build
+      working-directory: nuxt-papi
